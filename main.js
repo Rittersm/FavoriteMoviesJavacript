@@ -1,3 +1,26 @@
+function tableRow(movie){
+  return "<tr><td>" + movie.title +
+  "</td><td>" + movie.genre +
+  "</td><td>" + movie.year +
+  "</td><td>" + movie.directors +
+  "</td><td>" + movie.actors +
+  "</td><td>" + movie.ratings.stars + "/" + movie.ratings.meta + "</td></tr>"
+}
+
+function tableBody(movies, table){
+  movies.sort(function(a, b){return a.ratings.stars < b.ratings.stars}).forEach(function(movie){
+    document.getElementById(table).innerHTML += tableRow(movie)
+  })
+}
+
+function sortAlpha(movies){
+  console.log(JSON.stringify(movies.sort(function(a, b){return a.title > b.title})))
+}
+
+function sortStars(movies){
+  console.log(JSON.stringify(movies.sort(function(a, b){return a.ratings.stars < b.ratings.stars})))
+}
+
 var favoriteMovies = []
 
 favoriteMovies.push({ title: "Dr. Strangelove", genre: "Dark-Comedy", year: "1964", directors: "Stanley Kubrick", actors: ["Peter Sellers", "George C. Scott", "Slim Pickens", "Sterling Hayden"], ratings: {stars: "8.5", meta: "96"}})
@@ -6,19 +29,10 @@ favoriteMovies.push({ title: "Pulp Fiction", genre: "Crime-Drama", year: "1994",
 favoriteMovies.push({ title: "Once Upon a Time in the West", genre: "Western", year: "1969", directors: "Sergio Leone", actors: ["Claudia Cardinale", "Henry Fonda", "Charles Bronson", "Jason Robards"], ratings: {stars: "8.6", meta: "80"}})
 favoriteMovies.push({ title: "Spirited Away", genre: "Anime", year: "2001", directors: "Hayao Miyazaki", actors: ["Rumi Hiiragi", "Miyu Irino", "Mari Natsuki", "Takashi Naitô"], ratings: {stars: "8.6", meta: "94"}})
 
-console.log(JSON.stringify(favoriteMovies.sort(function(a, b){return a.title > b.title})))
-console.log(JSON.stringify(favoriteMovies.sort(function(a, b){return a.ratings.stars < b.ratings.stars})))
+sortAlpha(favoriteMovies)
+sortStars(favoriteMovies)
 
-favoriteMovies.sort(function(a, b){return a.ratings.stars < b.ratings.stars}).forEach(function(movie){
-  document.getElementById("favoritemovies").innerHTML +=
-    "<tr><td>" + movie.title +
-    "</td><td>" + movie.genre +
-    "</td><td>" + movie.year +
-    "</td><td>" + movie.directors +
-    "</td><td>" + movie.actors +
-    "</td><td>" + movie.ratings.stars + "/" + movie.ratings.meta + "</td></tr>"
-  }
-)
+tableBody(favoriteMovies, "favoritemovies")
 
 var hatedMovies = []
 
@@ -28,32 +42,14 @@ hatedMovies.push({ title: "Matrix Revolutions", genre: "Sci-fi", year: "2003", d
 hatedMovies.push({ title: "Suburban Commando", genre: "Sci-fi", year: "1991", directors: "Burt Kennedy", actors: ["Hulk Hogan", "Christopher Lloyd", "Shelley Duvall", "Larry Miller"], ratings: {stars: "4.2", meta: "23"}})
 hatedMovies.push({ title: "Super Mario Bros.", genre: "Video-Game", year: "1993", directors: ["Annabel Jankel", "Rocky Morton"], actors: ["Bob Hoskins", "John Lequizamo", "Dennis Hopper", "Samantha Mathis"], ratings: {stars: "4.0", meta: "33"}})
 
-console.log(JSON.stringify(hatedMovies.sort(function(a, b){return a.title > b.title})))
-console.log(JSON.stringify(hatedMovies.sort(function(a, b){return a.ratings.stars < b.ratings.stars})))
+sortAlpha(hatedMovies)
+sortStars(hatedMovies)
 
-hatedMovies.sort(function(a, b){return a.ratings.stars < b.ratings.stars}).forEach(function(movie){
-  document.getElementById("hatedmovies").innerHTML +=
-    "<tr><td>" + movie.title +
-    "</td><td>" + movie.genre +
-    "</td><td>" + movie.year +
-    "</td><td>" + movie.directors +
-    "</td><td>" + movie.actors +
-    "</td><td>" + movie.ratings.stars + "/" + movie.ratings.meta + "</td></tr>"
-  }
-)
+tableBody(hatedMovies, "hatedmovies")
 
 var allMovies = favoriteMovies.concat(hatedMovies)
 
-console.log(JSON.stringify(allMovies.sort(function(a, b){return a.title > b.title})))
-console.log(JSON.stringify(allMovies.sort(function(a, b){return a.ratings.stars < b.ratings.stars})))
+sortAlpha(allMovies)
+sortStars(allMovies)
 
-allMovies.sort(function(a, b){return a.ratings.stars < b.ratings.stars}).forEach(function(movie){
-  document.getElementById("allmovies").innerHTML +=
-    "<tr><td>" + movie.title +
-    "</td><td>" + movie.genre +
-    "</td><td>" + movie.year +
-    "</td><td>" + movie.directors +
-    "</td><td>" + movie.actors +
-    "</td><td>" + movie.ratings.stars + "/" + movie.ratings.meta + "</td></tr>"
-  }
-)
+tableBody(allMovies, "allmovies")
